@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -64,7 +64,6 @@
         /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
         .hero {
             position: relative;
-            height: 80vh;
             width: 100%;
             display: flex;
             align-items: center;
@@ -72,6 +71,8 @@
             text-align: center;
             color: var(--white);
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('photo.png') no-repeat center center / cover;
+            min-height: 80vh;
+            padding: 80px 0;
         }
 
         .hero-content { position: relative; z-index: 2; max-width: 850px; padding: 0 20px; }
@@ -163,11 +164,32 @@
 
         footer { background: var(--bg-dark); color: var(--white); text-align: center; padding: 40px 20px; font-size: 14px; }
 
-        /* Мобильные правки */
+        /* --- Мобильные правки --- */
         @media (max-width: 600px) {
-            .hero { height: 90vh; }
-            .daily-ayah-card { margin-top: -40px; padding: 25px 15px; }
+            .hero {
+                min-height: auto;
+                padding: 100px 20px 60px;
+            }
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-main {
+                width: 100%;
+                max-width: 280px;
+            }
+            .daily-ayah-card {
+                margin-top: -20px;
+                padding: 25px 15px;
+                border-radius: 12px;
+            }
             .header-nav { top: 10px; right: 10px; }
+            .main-logo-box { width: 90px; height: 90px; margin-bottom: 15px; }
+            .section-header h2 { font-size: 18px; letter-spacing: 1px; }
+            .nav-card {
+                padding: 30px 20px;
+            }
+            .nav-card h3 { font-size: 20px; }
         }
     </style>
 </head>
@@ -252,3 +274,4 @@
     </script>
 </body>
 </html>
+
