@@ -9,27 +9,20 @@
         :root {
             --bg-dark: #3d3129;
             --accent-gold: #c2a378;
-            --gold-light: #e6d5bc;
-            --gold-gradient: linear-gradient(135deg, #c2a378 0%, #a68b64 100%);
             --white: #ffffff;
             --bg-page: #fdfaf5;
-            --card-bg: #ffffff;
-            --text-main: #4a3f35;
             --text-muted: #8c8279;
-            --transition-smooth: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-reveal: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --transition: 0.3s ease;
         }
 
         * { box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: var(--bg-page); 
-            background-image: 
-                radial-gradient(circle at top right, rgba(176,141,87,0.05), transparent),
-                url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-page);
+            background-image: radial-gradient(circle at top right, rgba(176,141,87,0.05), transparent);
             background-attachment: fixed;
-            margin: 0; padding: 20px; 
+            margin: 0; padding: 20px;
             color: var(--bg-dark);
             line-height: 1.6;
         }
@@ -50,13 +43,12 @@
             align-items: center;
             gap: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
         }
-        .back-btn:hover { transform: translateX(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .back-btn:hover { transform: translateX(-5px); }
 
-        .search-container {
-            margin-bottom: 40px;
-            position: relative;
-        }
+        .search-container { margin-bottom: 40px; }
         #surahSearch {
             width: 100%;
             padding: 18px 25px;
@@ -70,65 +62,111 @@
             transition: var(--transition);
             text-align: center;
         }
+        #surahSearch:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(194,163,120,0.15); }
 
         .quran-header { text-align: center; margin-bottom: 50px; }
-        .arabic-title { 
-            font-family: 'Amiri', serif; 
-            font-size: clamp(3rem, 8vw, 4.5rem); 
-            color: var(--accent-gold); 
-            display: block; 
+        .arabic-title {
+            font-family: 'Amiri', serif;
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            color: var(--accent-gold);
+            display: block;
             margin-bottom: 10px;
         }
         h1 { margin: 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
-        .surah-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 25px; 
-            direction: rtl; 
+        .surah-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            direction: rtl;
+            unicode-bidi: bidi-override;
         }
 
         .surah-card {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255,255,255,0.6);
             backdrop-filter: blur(5px);
             padding: 30px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1.5px solid rgba(194,163,120,0.4);
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            animation: fadeInUp 0.6s ease forwards;
+            animation: fadeInUp 0.4s ease forwards;
             opacity: 0;
-            direction: ltr; 
+            direction: ltr;
         }
-
-        .surah-card:hover { 
-            transform: translateY(-10px); 
+        .surah-card:hover {
+            transform: translateY(-8px);
             background: var(--white);
-            box-shadow: 0 20px 40px rgba(176,141,87,0.15);
+            box-shadow: 0 20px 40px rgba(176,141,87,0.2);
             border-color: var(--accent-gold);
         }
 
         .surah-num {
             position: absolute;
-            top: -15px; right: 20px; 
+            top: -15px; left: 20px;
             background: var(--bg-dark);
             width: 40px; height: 40px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent-gold);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            direction: ltr;
         }
 
         .ar-name { font-family: 'Scheherazade New', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
         .ru-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 5px; text-align: center; color: var(--bg-dark); }
-        .ru-desc { font-size: 0.9rem; opacity: 0.6; font-style: italic; }
+        .ru-desc { font-size: 0.9rem; opacity: 0.6; font-style: italic; margin-bottom: 10px; }
+        .ayah-count {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--white);
+            background: var(--bg-dark);
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* nav between surahs */
+        .surah-nav {
+            display: flex;
+            gap: 16px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+        .surah-nav-btn {
+            flex: 1;
+            background: var(--white);
+            border: 1.5px solid rgba(194,163,120,0.4);
+            border-radius: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-decoration: none;
+        }
+        .surah-nav-btn:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 25px rgba(176,141,87,0.18);
+            transform: translateY(-3px);
+        }
+        .surah-nav-btn.prev { flex-direction: row-reverse; }
+        .nav-arrow { font-size: 1.5rem; color: var(--accent-gold); flex-shrink: 0; }
+        .nav-texts { display: flex; flex-direction: column; }
+        .surah-nav-btn.prev .nav-texts { text-align: right; }
+        .nav-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+        .nav-name { font-size: 0.95rem; font-weight: 700; color: var(--bg-dark); }
+        .nav-ar { font-family: 'Scheherazade New', serif; font-size: 1.3rem; color: var(--accent-gold); }
+        .nav-count { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
 
         #reading-view { display: none; }
-        
+
         .bismillah {
             font-family: 'Amiri', serif;
             font-size: clamp(2.5rem, 6vw, 3.5rem);
@@ -137,14 +175,13 @@
             color: var(--bg-dark);
         }
 
-        .ayah-box { 
-            background: var(--white); 
-            padding: 40px; 
-            border-radius: 20px; 
-            margin-bottom: 30px; 
-            border-right: 5px solid var(--accent-gold); 
-            box-shadow: var(--shadow);
-            position: relative;
+        .ayah-box {
+            background: var(--white);
+            padding: 35px 40px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border-right: 5px solid var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .ayah-header {
@@ -154,9 +191,9 @@
             margin-bottom: 20px;
         }
 
-        .ayah-num { 
-            color: var(--accent-gold); 
-            font-weight: 700; 
+        .ayah-num {
+            color: var(--accent-gold);
+            font-weight: 700;
             padding: 5px 15px;
             background: #fdf8f0;
             border-radius: 8px;
@@ -167,38 +204,127 @@
             background: var(--accent-gold);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             transition: var(--transition);
             box-shadow: 0 4px 10px rgba(176,141,87,0.3);
         }
+        .play-btn:hover { background: var(--bg-dark); transform: scale(1.1); }
+        .play-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
-        .play-btn:hover {
-            background: var(--bg-dark);
-            transform: scale(1.1);
-        }
-
-        .play-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .ayah-text-ar { 
-            font-family: 'Scheherazade New', serif; 
-            font-size: 2.8rem; 
-            text-align: right; 
-            display: block; 
+        .ayah-text-ar {
+            font-family: 'Scheherazade New', serif;
+            font-size: 2.8rem;
+            text-align: right;
+            display: block;
             line-height: 2.4;
             margin-bottom: 25px;
             direction: rtl;
         }
-        .ayah-text-ru { font-size: 1.2rem; color: #333; line-height: 1.8; text-align: left; }
+
+        .ayah-text-ru {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.8;
+            margin: 0 0 22px 0;
+        }
+
+        /* ─── КНОПКА ТАФСИРА ─── */
+        .tafsir-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1.5px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 9px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+        }
+        .tafsir-toggle-btn:hover {
+            background: rgba(194,163,120,0.1);
+        }
+        .tafsir-toggle-btn.open {
+            background: var(--accent-gold);
+            color: white;
+        }
+        .tafsir-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+        .tafsir-toggle-btn.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* ─── БЛОК ТАФСИРА ─── */
+        .tafsir-block {
+            display: none;
+            margin-top: 22px;
+            padding: 28px 30px;
+            background: linear-gradient(135deg, #fdf8f0, #faf3e8);
+            border-radius: 14px;
+            border-left: 4px solid var(--accent-gold);
+        }
+        .tafsir-block.visible {
+            display: block;
+            animation: tafsirReveal 0.35s ease forwards;
+        }
+
+        .tafsir-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tafsir-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(194,163,120,0.35);
+        }
+
+        .tafsir-content {
+            font-size: 1rem;
+            line-height: 2;
+            color: #3a3028;
+        }
+        .tafsir-content p { margin: 0 0 14px 0; }
+        .tafsir-content p:last-child { margin-bottom: 0; }
+
+        /* Арабский текст внутри тафсира */
+        .tafsir-content span[class*="arabic"],
+        .tafsir-content .arabic {
+            font-family: 'Scheherazade New', serif;
+            font-size: 1.4rem;
+            direction: rtl;
+            unicode-bidi: embed;
+            color: var(--bg-dark);
+        }
+
+        .tafsir-no-data {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        @keyframes tafsirReveal {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -210,57 +336,69 @@
         @media (max-width: 600px) {
             .surah-grid { grid-template-columns: 1fr; }
             .ayah-text-ar { font-size: 2.2rem; }
+            .ayah-box { padding: 25px 20px; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <button class="back-btn" id="btn-back" onclick="handleBack()">← Назад</button>
+    <button class="back-btn" onclick="handleBack()">← Назад</button>
 
+    <!-- СПИСОК СУР -->
     <div id="list-view">
         <div class="quran-header">
             <span class="arabic-title">القرآن الكريم</span>
             <h1>Священный Коран</h1>
         </div>
-
         <div class="search-container">
             <input type="text" id="surahSearch" placeholder="Поиск суры...">
         </div>
-
         <div class="surah-grid" id="surah-container"></div>
     </div>
 
+    <!-- ЧТЕНИЕ СУРЫ -->
     <div id="reading-view">
         <div class="quran-header">
             <span id="current-ar" class="arabic-title"></span>
             <h1 id="current-ru"></h1>
-            <p id="current-info"></p>
+            <p id="current-info" style="opacity:0.6;margin-top:8px;"></p>
         </div>
         <div id="ayahs-container"></div>
     </div>
 
-    <footer>
-        &copy; 2026 Ummah Online.
-    </footer>
+    <footer>&copy; 2026 Ummah Online.</footer>
 </div>
 
 <script>
-    const namesRu = ["Аль-Фатиха — Открывающая — 🕋", "Аль-Бакара — Корова — 🕌", "Аль Имран — Семейство Имрана — 🕌", "Ан-Ниса — Женщины — 🕌", "Аль-Маида — Трапеза — 🕌", "Аль-Ан‘ам — Скот — 🕋", "Аль-А‘раф — Преграды — 🕋", "Аль-Анфаль — Добыча — 🕌", "Ат-Тауба — Покаяние — 🕌", "Юнус — Иона — 🕋", "Худ — Худ — 🕋", "Юсуф — Иосиф — 🕋", "Ар-Ра‘д — Гром — 🕋", "Ибрахим — Авраам — 🕋", "Аль-Хиджр — Хиджр — 🕋", "Ан-Нахль — Пчёлы — 🕋", "Аль-Исра — Ночной перенос — 🕋", "Аль-Кахф — Пещера — 🕋", "Марьям — Мария — 🕋", "Та Ха — Та Ха — 🕋", "Аль-Анбия — Пророки — 🕋", "Аль-Хадж — Паломничество — 🕌", "Аль-Му’минун — Верующие — 🕋", "Ан-Нур — Свет — 🕌", "Аль-Фуркан — Различение — 🕋", "Аш-Шу‘ара — Поэты — 🕋", "Ан-Намль — Муравьи — 🕋", "Аль-Касас — Рассказ — 🕋", "Аль-‘Анкабут — Паук — 🕋", "Ар-Рум — Римляне — 🕋", "Лукман — Лукман — 🕋", "Ас-Саджда — Поклон — 🕋", "Аль-Ахзаб — Союзники — 🕌", "Саба — Сава — 🕋", "Фатыр — Творец — 🕋", "Йа Син — Йа Син — 🕋", "Ас-Саффат — Выстроившиеся в ряд — 🕋", "Сад — Сад — 🕋", "Аз-Зумар — Толпы — 🕋", "Гафир — Прощающий — 🕋", "Фуссилят — Разъяснённые — 🕋", "Аш-Шура — Совет — 🕋", "Аз-Зухруф — Украшения — 🕋", "Ад-Духан — Дым — 🕋", "Аль-Джасия — Коленопреклонённые — 🕋", "Аль-Ахкаф — Песчаные холмы — 🕋", "Мухаммад — Мухаммад — 🕌", "Аль-Фатх — Победа — 🕌", "Аль-Худжурат — Комнаты — 🕌", "Каф — Каф — 🕋", "Аз-Зарият — Развевающие — 🕋", "Ат-Тур — Гора — 🕋", "Ан-Наджм — Звезда — 🕋", "Аль-Камар — Луна — 🕋", "Ар-Рахман — Милостивый — 🕋", "Аль-Ваки‘а — Событие — 🕋", "Аль-Хадид — Железо — 🕌", "Аль-Муджадила — Препирающаяся — 🕌", "Аль-Хашр — Собрание — 🕌", "Аль-Мумтахина — Испытуемая — 🕌", "Ас-Сафф — Ряды — 🕌", "Аль-Джуму‘а — Пятница — 🕌", "Аль-Мунафикун — Лицемеры — 🕌", "Ат-Тагабун — Взаимный убыток — 🕌", "Ат-Талак — Развод — 🕌", "Ат-Тахрим — Запрещение — 🕌", "Аль-Мульк — Власть — 🕋", "Аль-Калам — Перо — 🕋", "Аль-Хакка — Неминуемое — 🕋", "Аль-Ма‘аридж — Ступени — 🕋", "Нух — Ной — 🕋", "Аль-Джинн — Джинны — 🕋", "Аль-Муззаммиль — Закутавшийся — 🕋", "Аль-Муддассир — Завернувшийся — 🕋", "Аль-Кияма — Воскресение — 🕋", "Аль-Инсан — Человек — 🕋", "Аль-Мурсалят — Посылаемые — 🕋", "Ан-Наба — Весть — 🕋", "Ан-Нази‘ат — Вырывающие — 🕋", "‘Абаса — Нахмурился — 🕋", "Ат-Таквир — Скручивание — 🕋", "Аль-Инфитар — Раскалывание — 🕋", "Аль-Мутаффифин — Обвешивающие — 🕋", "Аль-Иншикак — Разверзание — 🕋", "Аль-Бурудж — Созвездия — 🕋", "Ат-Тарик — Ночной путник — 🕋", "Аль-А‘ля — Всевышний — 🕋", "Аль-Гашия — Покрывающее — 🕋", "Аль-Фаджр — Заря — 🕋", "Аль-Балад — Город — 🕋", "Аш-Шамс — Солнце — 🕋", "Аль-Лейль — Ночь — 🕋", "Ад-Духа — Утро — 🕋", "Аш-Шарх — Раскрытие — 🕋", "Ат-Тин — Смоковница — 🕋", "Аль-‘Аляк — Сгусток — 🕋", "Аль-Кадр — Предопределение — 🕋", "Аль-Баййина — Ясное знамение — 🕌", "Аз-Зальзаля — Сотрясение — 🕌", "Аль-‘Адият — Мчащиеся — 🕋", "Аль-Кари‘а — Поражающее — 🕋", "Ат-Такасур — Страсть к умножению — 🕋", "Аль-‘Аср — Время — 🕋", "Аль-Хумаза — Хулитель — 🕋", "Аль-Филь — Слон — 🕋", "Курайш — Курайшиты — 🕋", "Аль-Ма‘ун — Мелочь — 🕋", "Аль-Каусар — Изобилие — 🕋", "Аль-Кафирун — Неверующие — 🕋", "Ан-Наср — Помощь — 🕌", "Аль-Масад — Пальмовое волокно — 🕋", "Аль-Ихляс — Искренность — 🕋", "Аль-Фаляк — Рассвет — 🕋", "Ан-Нас — Люди — 🕋"];
+    const namesRu = ["Аль-Фатиха — Открывающая — 🕋","Аль-Бакара — Корова — 🕌","Аль Имран — Семейство Имрана — 🕌","Ан-Ниса — Женщины — 🕌","Аль-Маида — Трапеза — 🕌","Аль-Ан'ам — Скот — 🕋","Аль-А'раф — Преграды — 🕋","Аль-Анфаль — Добыча — 🕌","Ат-Тауба — Покаяние — 🕌","Юнус — Иона — 🕋","Худ — Худ — 🕋","Юсуф — Иосиф — 🕋","Ар-Ра'д — Гром — 🕋","Ибрахим — Авраам — 🕋","Аль-Хиджр — Хиджр — 🕋","Ан-Нахль — Пчёлы — 🕋","Аль-Исра — Ночной перенос — 🕋","Аль-Кахф — Пещера — 🕋","Марьям — Мария — 🕋","Та Ха — Та Ха — 🕋","Аль-Анбия — Пророки — 🕋","Аль-Хадж — Паломничество — 🕌","Аль-Му'минун — Верующие — 🕋","Ан-Нур — Свет — 🕌","Аль-Фуркан — Различение — 🕋","Аш-Шу'ара — Поэты — 🕋","Ан-Намль — Муравьи — 🕋","Аль-Касас — Рассказ — 🕋","Аль-'Анкабут — Паук — 🕋","Ар-Рум — Римляне — 🕋","Лукман — Лукман — 🕋","Ас-Саджда — Поклон — 🕋","Аль-Ахзаб — Союзники — 🕌","Саба — Сава — 🕋","Фатыр — Творец — 🕋","Йа Син — Йа Син — 🕋","Ас-Саффат — Выстроившиеся в ряд — 🕋","Сад — Сад — 🕋","Аз-Зумар — Толпы — 🕋","Гафир — Прощающий — 🕋","Фуссилят — Разъяснённые — 🕋","Аш-Шура — Совет — 🕋","Аз-Зухруф — Украшения — 🕋","Ад-Духан — Дым — 🕋","Аль-Джасия — Коленопреклонённые — 🕋","Аль-Ахкаф — Песчаные холмы — 🕋","Мухаммад — Мухаммад — 🕌","Аль-Фатх — Победа — 🕌","Аль-Худжурат — Комнаты — 🕌","Каф — Каф — 🕋","Аз-Зарият — Развевающие — 🕋","Ат-Тур — Гора — 🕋","Ан-Наджм — Звезда — 🕋","Аль-Камар — Луна — 🕋","Ар-Рахман — Милостивый — 🕋","Аль-Ваки'а — Событие — 🕋","Аль-Хадид — Железо — 🕌","Аль-Муджадила — Препирающаяся — 🕌","Аль-Хашр — Собрание — 🕌","Аль-Мумтахина — Испытуемая — 🕌","Ас-Сафф — Ряды — 🕌","Аль-Джуму'а — Пятница — 🕌","Аль-Мунафикун — Лицемеры — 🕌","Ат-Тагабун — Взаимный убыток — 🕌","Ат-Талак — Развод — 🕌","Ат-Тахрим — Запрещение — 🕌","Аль-Мульк — Власть — 🕋","Аль-Калам — Перо — 🕋","Аль-Хакка — Неминуемое — 🕋","Аль-Ма'аридж — Ступени — 🕋","Нух — Ной — 🕋","Аль-Джинн — Джинны — 🕋","Аль-Муззаммиль — Закутавшийся — 🕋","Аль-Муддассир — Завернувшийся — 🕋","Аль-Кияма — Воскресение — 🕋","Аль-Инсан — Человек — 🕋","Аль-Мурсалят — Посылаемые — 🕋","Ан-Наба — Весть — 🕋","Ан-Нази'ат — Вырывающие — 🕋","'Абаса — Нахмурился — 🕋","Ат-Таквир — Скручивание — 🕋","Аль-Инфитар — Раскалывание — 🕋","Аль-Мутаффифин — Обвешивающие — 🕋","Аль-Иншикак — Разверзание — 🕋","Аль-Бурудж — Созвездия — 🕋","Ат-Тарик — Ночной путник — 🕋","Аль-А'ля — Всевышний — 🕋","Аль-Гашия — Покрывающее — 🕋","Аль-Фаджр — Заря — 🕋","Аль-Балад — Город — 🕋","Аш-Шамс — Солнце — 🕋","Аль-Лейль — Ночь — 🕋","Ад-Духа — Утро — 🕋","Аш-Шарх — Раскрытие — 🕋","Ат-Тин — Смоковница — 🕋","Аль-'Аляк — Сгусток — 🕋","Аль-Кадр — Предопределение — 🕋","Аль-Баййина — Ясное знамение — 🕌","Аз-Зальзаля — Сотрясение — 🕌","Аль-'Адият — Мчащиеся — 🕋","Аль-Кари'а — Поражающее — 🕋","Ат-Такасур — Страсть к умножению — 🕋","Аль-'Аср — Время — 🕋","Аль-Хумаза — Хулитель — 🕋","Аль-Филь — Слон — 🕋","Курайш — Курайшиты — 🕋","Аль-Ма'ун — Мелочь — 🕋","Аль-Каусар — Изобилие — 🕋","Аль-Кафирун — Неверующие — 🕋","Ан-Наср — Помощь — 🕌","Аль-Масад — Пальмовое волокно — 🕋","Аль-Ихляс — Искренность — 🕋","Аль-Фаляк — Рассвет — 🕋","Ан-Нас — Люди — 🕋"];
 
     let qData = [];
+    let tafsirData = {};
     let isReading = false;
     let currentAudio = null;
 
-    async function loadQuran() {
+    async function loadAll() {
         try {
-            const res = await fetch('quran_ru.json');
-            const data = await res.json();
-            qData = data.suras || data;
-            renderList();
+            const [qRes, tRes] = await Promise.all([
+                fetch('quran_ru.json'),
+                fetch('tafsir_ru.json')
+            ]);
+            qData = (await qRes.json());
+            qData = qData.suras || qData;
+            tafsirData = await tRes.json();
         } catch (e) {
-            console.error(e);
+            console.error('Ошибка загрузки:', e);
         }
+        renderList();
+    }
+
+    // Получить тафсир по номеру суры и аята (1-based)
+    function getTafsir(surahNum, ayahNum) {
+        const key = `${surahNum}:${ayahNum}`;
+        const entry = tafsirData[key];
+        if (!entry) return null;
+        return (typeof entry === 'object' && entry.text !== undefined) ? entry.text : String(entry);
     }
 
     function renderList() {
@@ -272,11 +410,13 @@
             card.className = 'surah-card';
             card.style.animationDelay = `${i * 0.01}s`;
             card.onclick = () => openSurah(i);
+            const ayahCount = (surah.aya || surah.verses || []).length;
             card.innerHTML = `
                 <div class="surah-num">${i + 1}</div>
                 <span class="ar-name">${surah.name}</span>
                 <div class="ru-name">${parts[0]} ${parts[2] || ''}</div>
                 <div class="ru-desc">${parts[1]}</div>
+                <div class="ayah-count">${ayahCount} аятов</div>
             `;
             container.appendChild(card);
         });
@@ -289,8 +429,6 @@
         });
     });
 
-    // Функция для получения пути к аудио файлу
-    // Формат: full quran/001001.mp3 (3 знака на суру, 3 на аят)
     function getAudioPath(surahNum, ayahNum) {
         const s = String(surahNum).padStart(3, '0');
         const a = String(ayahNum).padStart(3, '0');
@@ -299,89 +437,151 @@
 
     function toggleAudio(btn, surahIdx, ayahIdx) {
         const path = getAudioPath(surahIdx + 1, ayahIdx + 1);
-        
-        if (currentAudio && currentAudio.src.includes(path)) {
+        if (currentAudio && currentAudio._path === path) {
             if (currentAudio.paused) {
                 currentAudio.play();
-                btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+                btn.innerHTML = pauseIcon();
             } else {
                 currentAudio.pause();
-                btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+                btn.innerHTML = playIcon();
             }
             return;
         }
-
         if (currentAudio) {
             currentAudio.pause();
-            // Сбрасываем иконки у всех кнопок
-            document.querySelectorAll('.play-btn').forEach(b => {
-                b.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
-            });
+            document.querySelectorAll('.play-btn').forEach(b => b.innerHTML = playIcon());
         }
-
         currentAudio = new Audio(path);
-        btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-        
-        currentAudio.play().catch(e => {
-            console.error("Audio file not found:", path);
-            btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
-        });
+        currentAudio._path = path;
+        btn.innerHTML = pauseIcon();
+        currentAudio.play().catch(() => { btn.innerHTML = playIcon(); });
+        currentAudio.onended = () => { btn.innerHTML = playIcon(); };
+    }
 
-        currentAudio.onended = () => {
-            btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
-        };
+    const playIcon  = () => `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+    const pauseIcon = () => `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
+    function toggleTafsir(btn, blockId) {
+        const block = document.getElementById(blockId);
+        const isOpen = block.classList.contains('visible');
+        block.classList.toggle('visible', !isOpen);
+        btn.classList.toggle('open', !isOpen);
+        btn.querySelector('.label-text').textContent = isOpen ? 'Читать тафсир' : 'Скрыть тафсир';
     }
 
     function openSurah(index) {
         isReading = true;
         document.getElementById('list-view').style.display = 'none';
         document.getElementById('reading-view').style.display = 'block';
+
         const surah = qData[index];
         const parts = namesRu[index].split(' — ');
         document.getElementById('current-ar').innerText = surah.name;
         document.getElementById('current-ru').innerText = parts[0];
-        document.getElementById('current-info').innerText = `${parts[1]} — ${surah.aya ? surah.aya.length : surah.verses.length} аятов`;
+
+        const ayahs = surah.aya || surah.verses;
+        document.getElementById('current-info').innerText = `${parts[1]} · ${ayahs.length} аятов`;
+
         const container = document.getElementById('ayahs-container');
         container.innerHTML = '';
-        
-        if (index !== 8 && index !== 0) container.innerHTML += `<div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
-        
-        const ayahs = surah.aya || surah.verses;
+
+        // Басмала (кроме сур 1 и 9)
+        if (index !== 0 && index !== 8) {
+            container.innerHTML += `<div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
+        }
+
+        const surahNum = index + 1;
+
         ayahs.forEach((ayah, i) => {
-            const ayahBox = document.createElement('div');
-            ayahBox.className = 'ayah-box';
-            ayahBox.innerHTML = `
+            const ayahNum = i + 1;
+            const blockId = `tf-${surahNum}-${ayahNum}`;
+            const tafsirHtml = getTafsir(surahNum, ayahNum);
+
+            const tafsirInner = tafsirHtml
+                ? `<div class="tafsir-content">${tafsirHtml}</div>`
+                : `<p class="tafsir-no-data">Тафсир для этого аята не найден.</p>`;
+
+            const div = document.createElement('div');
+            div.className = 'ayah-box';
+            div.innerHTML = `
                 <div class="ayah-header">
-                    <span class="ayah-num">Аят ${i + 1}</span>
-                    <button class="play-btn" onclick="toggleAudio(this, ${index}, ${i})">
-                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
+                    <span class="ayah-num">Аят ${ayahNum}</span>
+                    <button class="play-btn" onclick="toggleAudio(this,${index},${i})">${playIcon()}</button>
                 </div>
                 <span class="ayah-text-ar">${ayah.text}</span>
-                <p class="ayah-text-ru">${ayah.translation || ayah.text_russian}</p>
+                <p class="ayah-text-ru">${ayah.translation || ayah.text_russian || ''}</p>
+                <button class="tafsir-toggle-btn" onclick="toggleTafsir(this,'${blockId}')">
+                    <span class="label-text">Читать тафсир</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div id="${blockId}" class="tafsir-block">
+                    <div class="tafsir-label">Тафсир ибн Касир</div>
+                    ${tafsirInner}
+                </div>
             `;
-            container.appendChild(ayahBox);
+            container.appendChild(div);
         });
-        window.scrollTo(0,0);
+
+        // Навигация: предыдущая / следующая сура
+        const nav = document.createElement('div');
+        nav.className = 'surah-nav';
+
+        if (index < qData.length - 1) {
+            const next = qData[index + 1];
+            const nextParts = namesRu[index + 1].split(' — ');
+            const nextCount = (next.aya || next.verses || []).length;
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'surah-nav-btn next';
+            nextBtn.onclick = () => openSurah(index + 1);
+            nextBtn.innerHTML = `
+                <span class="nav-arrow">←</span>
+                <div class="nav-texts">
+                    <span class="nav-label">Следующая сура</span>
+                    <span class="nav-ar">${next.name}</span>
+                    <span class="nav-name">${nextParts[0]}</span>
+                    <span class="nav-count">${nextCount} аятов</span>
+                </div>
+            `;
+            nav.appendChild(nextBtn);
+        }
+
+        if (index > 0) {
+            const prev = qData[index - 1];
+            const prevParts = namesRu[index - 1].split(' — ');
+            const prevCount = (prev.aya || prev.verses || []).length;
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'surah-nav-btn prev';
+            prevBtn.onclick = () => openSurah(index - 1);
+            prevBtn.innerHTML = `
+                <span class="nav-arrow">→</span>
+                <div class="nav-texts">
+                    <span class="nav-label">Предыдущая сура</span>
+                    <span class="nav-ar">${prev.name}</span>
+                    <span class="nav-name">${prevParts[0]}</span>
+                    <span class="nav-count">${prevCount} аятов</span>
+                </div>
+            `;
+            nav.appendChild(prevBtn);
+        }
+
+        container.appendChild(nav);
+
+        window.scrollTo(0, 0);
     }
 
     function handleBack() {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio = null;
-        }
+        if (currentAudio) { currentAudio.pause(); currentAudio = null; }
         if (isReading) {
             isReading = false;
             document.getElementById('list-view').style.display = 'block';
             document.getElementById('reading-view').style.display = 'none';
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         } else {
-            // Если вы используете это внутри приложения, замените на нужный URL
             window.location.href = 'index.html';
         }
     }
 
-    loadQuran();
+    loadAll();
 </script>
 </body>
 </html>
