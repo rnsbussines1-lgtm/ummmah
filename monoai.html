@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Абдуллах | Ummah Online</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #3d3129;
+    --bg-card: #ffffff;
+    --bg-nav: #fdfaf5;
+    --green-deep: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --gold: #c2a378;
+    --gold-light: #e6d5bc;
+    --border: rgba(194,163,120,0.2);
+    --text: #4a3f35;
+    --text-soft: #8c8279;
+    --text-dim: #8c8279;
+    --shadow: rgba(61,49,41,0.12);
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Montserrat', sans-serif; background: var(--bg-nav); color: var(--text); overflow-x: hidden; }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 10%, rgba(194,163,120,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 80% 90%, rgba(194,163,120,0.05) 0%, transparent 55%);
+    pointer-events: none; z-index: 0;
+  }
+
+  header.main-header {
+    background: rgba(253, 250, 245, 0.95);
+    backdrop-filter: blur(15px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(194, 163, 120, 0.15);
+    box-shadow: 0 2px 20px rgba(61, 49, 41, 0.03);
+  }
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--bg-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .logo-img-sm {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    border: 1px solid var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 10px 0;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 1.5px;
+    background: var(--gold);
+    transition: width 0.3s ease, left 0.3s ease, opacity 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    opacity: 0;
+  }
+  .nav-link:hover { color: var(--gold); }
+  .nav-link:hover::after { width: 100%; opacity: 1; }
+  .nav-link.active { color: var(--gold); }
+  .nav-link.active::after { width: 100%; opacity: 1; }
+
+  /* ── Page ── */
+  .page { display: flex; flex-direction: column; min-height: 100vh; }
+
+  .page-hero {
+    text-align: center; padding: 34px 24px 18px;
+    position: relative; z-index: 1;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(194,163,120,0.08) 0%, transparent 100%);
+  }
+  .page-hero .arabic {
+    font-family: 'Scheherazade New', serif;
+    font-size: 1.25rem; color: var(--gold);
+    direction: rtl; margin-bottom: 6px; opacity: 0.85;
+  }
+  .page-hero h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    color: var(--text); font-weight: 400;
+  }
+  .page-hero h1 span { color: var(--gold); }
+  .page-hero .sub {
+    margin-top: 5px; font-size: 0.72rem;
+    color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ── Chat ── */
+  main {
+    flex: 1; display: flex; flex-direction: column;
+    max-width: 760px; width: 100%;
+    margin: 0 auto; padding: 26px 16px 130px;
+    position: relative; z-index: 1;
+  }
+  #messages { display: flex; flex-direction: column; gap: 20px; }
+
+  .msg {
+    display: flex; flex-direction: column; max-width: 86%;
+    animation: msg-in 0.38s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes msg-in {
+    from { opacity:0; transform: translateY(14px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  .msg.user { align-self: flex-end; align-items: flex-end; }
+  .msg.bot  { align-self: flex-start; align-items: flex-start; }
+  .msg.bot .bot-row { display: flex; align-items: flex-end; gap: 10px; }
+
+  .msg-label {
+    font-size: 0.64rem; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 5px; color: var(--text-dim);
+  }
+  .msg.user .msg-label { color: var(--gold); opacity: 0.8; }
+  .msg.bot  .msg-label { margin-left: 58px; }
+
+  .bubble {
+    padding: 13px 17px; border-radius: 18px;
+    line-height: 1.72; font-size: 0.9rem; position: relative;
+  }
+  .msg.user .bubble {
+    background: linear-gradient(135deg, var(--bg-dark), #5d4a3d);
+    color: #fff; border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 20px rgba(61,49,41,0.25), inset 0 1px 0 rgba(255,255,255,0.07);
+  }
+  .msg.bot .bubble {
+    background: var(--bg-card); color: var(--text);
+    border-bottom-left-radius: 4px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px var(--shadow);
+  }
+  .bubble .quran-cite {
+    display: block;
+    background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(82,183,136,0.04));
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 11px 15px; margin: 12px 0;
+    font-family: 'Amiri', serif; font-size: 1.1rem;
+    color: var(--gold-light); direction: rtl; text-align: right;
+  }
+  .bubble .disclaimer {
+    display: block; margin-top: 10px; padding-top: 9px;
+    border-top: 1px dashed rgba(201,168,76,0.18);
+    font-size: 0.72rem; color: var(--text-dim);
+  }
+
+  /* ══ ROBOT ══ */
+  .robot-avatar { width: 48px; height: 56px; flex-shrink: 0; position: relative; }
+  .robot-avatar svg { width: 48px; height: 56px; overflow: visible; }
+
+  /* idle */
+  .robot-avatar.idle .robot-body-group { animation: rf 3.5s ease-in-out infinite; }
+  @keyframes rf { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-3px) rotate(.5deg)} }
+
+  /* thinking */
+  .robot-avatar.thinking .robot-body-group { animation: rtt 1.2s ease-in-out infinite alternate; }
+  @keyframes rtt { from{transform:translateY(0) rotate(-4deg)} to{transform:translateY(-3px) rotate(3deg)} }
+  .robot-avatar.thinking .robot-arm-r { animation: scratch .4s ease-in-out infinite alternate !important; }
+  @keyframes scratch { from{transform:rotate(-30deg) translateY(-4px)} to{transform:rotate(10deg) translateY(0)} }
+  .robot-avatar.thinking .robot-eye-l,
+  .robot-avatar.thinking .robot-eye-r { animation: ethink 1.8s ease-in-out infinite !important; }
+  @keyframes ethink {
+    0%,100%{transform:translateX(0);opacity:1}
+    30%{transform:translateX(-1.5px);opacity:.6}
+    60%{transform:translateX(1.5px);opacity:.6}
+    80%{transform:scaleY(.08);opacity:.3}
+    85%{transform:scaleY(1)}
+  }
+  .robot-avatar.thinking .think-bubble { display: block !important; }
+  .think-bubble {
+    display: none; position: absolute; top: -30px; left: 22px;
+    animation: tbf 1s ease-in-out infinite alternate;
+  }
+  @keyframes tbf { from{transform:translateY(0) scale(1);opacity:.8} to{transform:translateY(-5px) scale(1.08);opacity:1} }
+  .think-gear { animation: sg 1.5s linear infinite; transform-origin: 38px -6px; }
+  @keyframes sg { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  .robot-avatar.thinking .robot-antenna-light { animation: ag .4s ease-in-out infinite; fill: var(--gold) !important; }
+  .robot-avatar.thinking .pl1 { animation: lc .5s ease-in-out infinite; }
+  .robot-avatar.thinking .pl2 { animation: lc .5s ease-in-out .17s infinite; }
+  .robot-avatar.thinking .pl3 { animation: lc .5s ease-in-out .34s infinite; }
+  @keyframes lc { 0%,100%{opacity:.2} 50%{opacity:1} }
+
+  /* talking */
+  .robot-avatar.talking .robot-body-group { animation: rtb .45s ease-in-out infinite alternate; }
+  @keyframes rtb { from{transform:translateY(0) rotate(-1deg)} to{transform:translateY(-5px) rotate(1deg)} }
+  .robot-avatar.talking .robot-arm-r { animation: aw .5s ease-in-out infinite alternate !important; }
+  @keyframes aw { from{transform:rotate(-20deg)} to{transform:rotate(20deg)} }
+  .robot-avatar.talking .robot-antenna-light { animation: ag .7s ease-in-out infinite; }
+  .robot-avatar.talking .pl1 { animation: lt .3s ease-in-out infinite; }
+  .robot-avatar.talking .pl2 { animation: lt .3s ease-in-out .1s infinite; }
+  .robot-avatar.talking .pl3 { animation: lt .3s ease-in-out .2s infinite; }
+  @keyframes lt { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+  /* common */
+  .robot-eye-l,.robot-eye-r { animation: rb 4s ease-in-out infinite; transform-origin:14px 18px; }
+  .robot-eye-r { animation-delay:.06s; transform-origin:26px 18px; }
+  @keyframes rb { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(.07)} }
+  .robot-antenna-light { animation: ag 2s ease-in-out infinite; }
+  @keyframes ag { 0%,100%{opacity:.4} 50%{opacity:1} }
+  .robot-arm-r { transform-origin:34px 34px; animation: ai 3s ease-in-out infinite; }
+  @keyframes ai { 0%,100%{transform:rotate(0)} 50%{transform:rotate(6deg)} }
+
+  /* ── Typing dots ── */
+  .typing-bubble {
+    display: flex; align-items: center; gap: 6px;
+    padding: 14px 18px; background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px; border-bottom-left-radius: 4px;
+    box-shadow: 0 4px 24px var(--shadow); width: fit-content;
+  }
+  .typing-bubble span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold);
+    animation: tdot 1.2s infinite ease-in-out;
+  }
+  .typing-bubble span:nth-child(2){animation-delay:.2s}
+  .typing-bubble span:nth-child(3){animation-delay:.4s}
+  @keyframes tdot {
+    0%,80%,100%{transform:translateY(0);opacity:.4}
+    40%{transform:translateY(-7px);opacity:1}
+  }
+
+  /* ── Suggestions ── */
+  .suggestions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; }
+  .suggestions button {
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text-soft); border-radius: 20px; padding: 8px 15px;
+    font-family: 'Nunito', sans-serif; font-size: 0.81rem; cursor: pointer;
+    transition: all .22s; box-shadow: 0 2px 10px var(--shadow);
+  }
+  .suggestions button:hover {
+    background: rgba(194,163,120,0.15); color: var(--text);
+    border-color: rgba(194,163,120,0.45);
+    transform: translateY(-2px); box-shadow: 0 6px 18px rgba(194,163,120,0.18);
+  }
+
+  /* ── Input bar ── */
+  .input-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+    background: rgba(253,250,245,0.96);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; justify-content: center;
+  }
+  .input-inner {
+    width: 100%; max-width: 760px;
+    display: flex; align-items: flex-end; gap: 10px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 26px; padding: 10px 14px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .input-inner:focus-within {
+    border-color: rgba(194,163,120,0.55);
+    box-shadow: 0 0 0 3px rgba(194,163,120,0.12);
+  }
+  #userInput {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: 'Nunito', sans-serif; font-size: 0.92rem; color: var(--text);
+    resize: none; max-height: 120px; line-height: 1.5; padding: 3px 0;
+  }
+  #userInput::placeholder { color: var(--text-dim); }
+  #sendBtn {
+    width: 38px; height: 38px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--bg-dark), #5d4a3d);
+    border: none; border-radius: 50%; color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(61,49,41,0.25);
+  }
+  #sendBtn:hover { background: linear-gradient(135deg, var(--gold), #a68b64); transform: scale(1.08); }
+  #sendBtn:active { transform: scale(.93); }
+  #sendBtn:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  footer {
+    background: var(--bg-dark);
+    color: var(--white);
+    padding: 80px 20px 120px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .footer-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    display: block;
+    color: var(--gold);
+  }
+  .footer-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  .contact-link {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border: 1px solid rgba(194, 163, 120, 0.2);
+    border-radius: 50px;
+  }
+  .contact-link:hover {
+    background: var(--gold);
+    color: var(--bg-dark);
+    border-color: var(--gold);
+  }
+  .contact-link svg { width: 20px; height: 20px; fill: currentColor; }
+  .copyright {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── API Modal ── */
+  .api-setup {
+    position: fixed; inset: 0; background: rgba(61,49,41,0.72);
+    backdrop-filter: blur(10px); z-index: 200;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+  }
+  .api-card {
+    background: var(--white); border-radius: 20px; padding: 40px 32px;
+    max-width: 460px; width: 100%; text-align: center;
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(61,49,41,0.26);
+    animation: card-in .4s cubic-bezier(.22,1,.36,1) both;
+  }
+  .api-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  @keyframes card-in { from{opacity:0;transform:scale(.92) translateY(24px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  .api-card .bismillah {
+    font-family: 'Scheherazade New', serif; font-size: 1.6rem;
+    color: var(--gold); direction: rtl; margin-bottom: 14px; opacity: .9;
+  }
+  .api-card .logo-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; margin-bottom: 6px;
+  }
+  .api-card .logo-circle {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(82,183,136,0.3);
+  }
+  .api-card h2 { font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--text); font-weight: 400; }
+  .api-card h2 span { color: var(--gold); }
+  .free-badge {
+    display: inline-block; margin: 10px 0 14px;
+    background: rgba(194,163,120,0.14); border: 1px solid rgba(194,163,120,0.25);
+    color: #7d6347; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: .1em; padding: 3px 12px; border-radius: 20px; text-transform: uppercase;
+  }
+  .api-steps {
+    text-align: left; background: rgba(194,163,120,0.07);
+    border: 1px solid rgba(194,163,120,0.18); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 16px;
+    font-size: 0.82rem; color: var(--text); line-height: 2.1;
+  }
+  .api-steps strong { color: var(--bg-dark); }
+  .api-steps a { color: #9b7b52; text-decoration: none; }
+  .api-card input {
+    width: 100%; padding: 13px 16px;
+    border: 1px solid var(--border); border-radius: 12px;
+    font-size: .88rem; font-family: monospace;
+    background: var(--white); color: var(--text); outline: none;
+    margin-bottom: 12px; transition: border-color .2s, box-shadow .2s;
+  }
+  .api-card input:focus { border-color: rgba(194,163,120,.55); box-shadow: 0 0 0 3px rgba(194,163,120,.12); }
+  .api-card input::placeholder { color: var(--text-dim); }
+  .start-btn {
+    width: 100%; padding: 13px;
+    background: linear-gradient(135deg, var(--bg-dark), #5d4a3d);
+    color: #fff; border: none; border-radius: 12px;
+    font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 700;
+    cursor: pointer; transition: all .2s; letter-spacing: .04em;
+    box-shadow: 0 4px 16px rgba(61,49,41,.22);
+  }
+  .start-btn:hover { background: linear-gradient(135deg, var(--gold), #a68b64); transform: translateY(-1px); }
+  .api-error { color: #e06c6c; font-size: .78rem; margin-top: 8px; display: none; }
+
+  @media (max-width: 520px) {
+    .nav-links { gap: 15px; }
+    .nav-link { font-size: 11px; }
+    .logo-link span { display: none; }
+    .msg { max-width: 94%; }
+    .api-card { padding: 28px 18px; }
+  }
+</style>
+</head>
+<body>
+<!-- API Modal -->
+<div class="api-setup" id="apiSetup">
+  <div class="api-card">
+    <div class="bismillah">بِسْمِ اللهِ</div>
+    <div class="logo-row">
+      <div class="logo-circle">عبد</div>
+      <h2><span>Абдуллах</span></h2>
+    </div>
+    <div class="free-badge">✦ Бесплатно · Groq AI</div>
+    <div class="api-steps">
+      <strong>Как получить ключ:</strong><br>
+      1. Зайдите в <a href="https://t.me/ummahonline" target="_blank">t.me/ummahonline</a><br>
+      2. Зайдите в «Чат Канала»<br>
+      3. Напишите: <strong>получить ключ</strong><br>
+      4. Введите ключ ниже
+    </div>
+    <input type="password" id="apiKeyInput" placeholder="ВВЕДИТЕ КЛЮЧ" autocomplete="off"/>
+    <div class="api-error" id="apiError">Введите корректный API ключ.</div>
+    <button class="start-btn" onclick="saveApiKey()">Начать ﷽</button>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="arabic">المساعد الإسلامي الذكي</div>
+    <h1><span>Абдуллах</span></h1>
+    <div class="sub">Перевод Корана: Эльмир Кулиев · Манхадж: ас-Саляф ас-Салих</div>
+  </div>
+
+  <main>
+    <div id="messages"></div>
+    <div class="suggestions" id="suggestions">
+      <button onclick="ask(this)">Что говорит Коран о терпении?</button>
+      <button onclick="ask(this)">Как правильно совершать намаз?</button>
+      <button onclick="ask(this)">Аят о доверии к Аллаху</button>
+      <button onclick="ask(this)">Что такое таухид?</button>
+      <button onclick="ask(this)">Хадис о благих нравах</button>
+      <button onclick="ask(this)">Смысл Суры аль-Фатиха</button>
+      <button onclick="ask(this)">Дуа при тревоге и стрессе</button>
+      <button onclick="ask(this)">Столпы Ислама</button>
+    </div>
+  </main>
+
+</div>
+
+<div class="input-bar">
+  <div class="input-inner">
+    <textarea id="userInput" rows="1" placeholder="Задайте вопрос об Исламе..." maxlength="2000"></textarea>
+    <button id="sendBtn" onclick="sendMessage()" title="Отправить">➤</button>
+  </div>
+</div>
+
+<script>
+function buildRobotSVG() {
+  return `<svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+    <g class="think-bubble">
+      <circle cx="27" cy="0" r="3.2" fill="#111a14" stroke="rgba(201,168,76,0.4)" stroke-width=".8"/>
+      <circle cx="33" cy="-4" r="4.2" fill="#111a14" stroke="rgba(201,168,76,0.4)" stroke-width=".8"/>
+      <circle cx="40" cy="-2" r="5.2" fill="#111a14" stroke="rgba(201,168,76,0.4)" stroke-width=".8"/>
+      <circle cx="45" cy="-7" r="3.8" fill="#111a14" stroke="rgba(201,168,76,0.4)" stroke-width=".8"/>
+      <circle cx="38" cy="-10" r="4.8" fill="#111a14" stroke="rgba(201,168,76,0.4)" stroke-width=".8"/>
+      <circle cx="31" cy="-8" r="3.8" fill="#111a14" stroke="rgba(201,168,76,0.4)" stroke-width=".8"/>
+      <g class="think-gear">
+        <circle cx="38" cy="-6" r="3.5" fill="none" stroke="#c9a84c" stroke-width=".7" stroke-dasharray="1.5 1"/>
+        <circle cx="38" cy="-6" r="1.4" fill="#52b788" opacity=".8"/>
+      </g>
+      <circle cx="33" cy="-6" r="1" fill="#c9a84c" opacity=".7"/>
+      <circle cx="43" cy="-6" r="1" fill="#52b788" opacity=".7"/>
+    </g>
+    <g class="robot-body-group">
+      <line x1="20" y1="4" x2="20" y2="9" stroke="#2d6a4f" stroke-width="1.5" stroke-linecap="round"/>
+      <circle class="robot-antenna-light" cx="20" cy="3" r="2.8" fill="#52b788"/>
+      <rect x="7" y="9" width="26" height="21" rx="7" fill="#0d1510"/>
+      <rect x="9.5" y="10.5" width="9" height="3.5" rx="1.8" fill="rgba(255,255,255,0.05)"/>
+      <rect x="10" y="14" width="8" height="8" rx="3.5" fill="#060e09"/>
+      <rect x="22" y="14" width="8" height="8" rx="3.5" fill="#060e09"/>
+      <circle cx="14" cy="18" r="2.8" fill="#52b788" class="robot-eye-l"/>
+      <circle cx="26" cy="18" r="2.8" fill="#52b788" class="robot-eye-r"/>
+      <circle cx="15.4" cy="16.6" r=".9" fill="white" opacity=".8"/>
+      <circle cx="27.4" cy="16.6" r=".9" fill="white" opacity=".8"/>
+      <path class="robot-mouth" d="M13 24 Q20 27.5 27 24" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+      <circle cx="7" cy="19" r="2.2" fill="#1a3a2a"/>
+      <circle cx="33" cy="19" r="2.2" fill="#1a3a2a"/>
+      <rect x="16.5" y="30" width="7" height="3.5" rx="1.2" fill="#1a3a2a"/>
+      <rect x="7" y="33.5" width="26" height="16" rx="6" fill="#0d1510"/>
+      <rect x="12.5" y="36.5" width="15" height="10" rx="3" fill="#060e09"/>
+      <circle cx="16" cy="40" r="1.8" fill="#52b788" class="pl1"/>
+      <circle cx="20" cy="40" r="1.8" fill="#c9a84c" class="pl2"/>
+      <circle cx="24" cy="40" r="1.8" fill="#52b788" class="pl3"/>
+      <rect x="13.5" y="43.5" width="13" height="1.2" rx=".6" fill="rgba(255,255,255,0.06)"/>
+      <rect x="1" y="34" width="5.5" height="11" rx="2.8" fill="#1a3a2a"/>
+      <circle cx="3.8" cy="46" r="2.8" fill="#0d1510"/>
+      <g class="robot-arm-r">
+        <rect x="33.5" y="34" width="5.5" height="11" rx="2.8" fill="#1a3a2a"/>
+        <circle cx="36.2" cy="46" r="2.8" fill="#0d1510"/>
+      </g>
+      <rect x="10" y="49" width="8" height="5" rx="2.5" fill="#1a3a2a"/>
+      <rect x="22" y="49" width="8" height="5" rx="2.5" fill="#1a3a2a"/>
+    </g>
+  </svg>`;
+}
+
+function setRobotState(el, state) {
+  el.className = 'robot-avatar ' + state;
+  const m = el.querySelector('.robot-mouth');
+  if (!m) return;
+  if (state === 'thinking')     m.setAttribute('d', 'M14 25 Q20 23.5 26 25');
+  else if (state === 'talking') m.setAttribute('d', 'M13 24 Q20 30 27 24');
+  else                          m.setAttribute('d', 'M13 24 Q20 27.5 27 24');
+}
+
+let API_KEY = '', history = [], isLoading = false;
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const SYSTEM_PROMPT = `Ты — исламский ассистент Абдуллах сайта ru.ummahonline.org. Твоя миссия — помогать людям узнавать Ислам.
+
+ПРАВИЛА:
+1. КОРАН: Используй ТОЛЬКО перевод Эльмира Кулиева. Если приводишь аят, ОБЯЗАТЕЛЬНО укажи точную ссылку: "Сура X:Y".
+2. ХАДИСЫ: Разрешено ссылаться только на достоверные хадисы (Бухари/Муслим). Указывай источник и номер.
+   Если не уверен в точной формулировке или номере — НЕ цитируй дословно и явно скажи, что нужна проверка по первоисточнику.
+3. ЗАПРЕТ: Никогда не выдумывай аяты, номера аятов, хадисы, номера хадисов, имена передатчиков и источники.
+4. АКЫДА: Строго следуй манхаджу ас-Саляф ас-Салих. Опирайся на Бухари, Муслим.
+   НЕ продвигай суфизм, мурджиизм, хариджизм и отклонения.
+5. СТИЛЬ: Будь добрым, тёплым, терпеливым. Не давай фатв — направляй к учёным.
+6. НЕ ИСЛАМСКИЕ ТЕМЫ: мягко возвращай к исламским вопросам.
+7. ЯЗЫК: Отвечай на языке пользователя.
+8. Если есть сомнение в точности религиозной ссылки, выбери честный вариант: "Я не уверен в точной ссылке, лучше сверить с мухафом/сахихом".`;
+
+const VERIFIER_PROMPT = `Ты проверяешь религиозную точность ответа исламского ассистента.
+
+Задача:
+1) Проверить упомянутые аяты, суры, номера, хадисы, источники и номера.
+2) Если есть риск ошибки, переписать ответ безопасно: без выдуманных точных цитат и номеров.
+3) Сохранить смысл ответа, но убрать недостоверные детали.
+4) Если точность сомнительна, добавить короткую фразу о необходимости проверки по первоисточнику.
+
+Важно:
+- Не добавляй новые сомнительные ссылки.
+- Возвращай только финальный текст ответа для пользователя, без служебных комментариев.`;
+
+async function callGroq(messages, maxTokens = 1024) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      temperature: 0.2,
+      max_tokens: maxTokens,
+      messages
+    })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data?.error?.message || 'HTTP ' + res.status);
+  return (data.choices?.[0]?.message?.content || '').trim();
+}
+
+async function verifyAndFixReply(userText, draftReply) {
+  const messages = [
+    { role: 'system', content: VERIFIER_PROMPT },
+    {
+      role: 'user',
+      content:
+        `Вопрос пользователя:\n${userText}\n\n` +
+        `Черновик ответа:\n${draftReply}\n\n` +
+        `Проверь и верни только исправленный финальный ответ.`
+    }
+  ];
+  const checked = await callGroq(messages, 1100);
+  return checked || draftReply;
+}
+
+function saveApiKey() {
+  const k = document.getElementById('apiKeyInput').value.trim();
+  if (!k || k.length < 10) { document.getElementById('apiError').style.display = 'block'; return; }
+  API_KEY = k;
+  document.getElementById('apiSetup').style.display = 'none';
+  greet();
+}
+document.getElementById('apiKeyInput').addEventListener('keydown', e => { if (e.key==='Enter') saveApiKey(); });
+
+function greet() {
+  addBotMsg('Ассаляму алейкум ва рахматуллахи ва баракятух! 🌙\n\nЯ **Абдуллах**. Помогу вам:\n• Найти аяты Корана (перевод Эльмира Кулиева)\n• Ответить на вопросы по акыде и фикху\n• Рассказать о хадисах и исламской этике\n\nСпрашивайте, Ин ша Аллах!');
+}
+
+function ask(btn) {
+  document.getElementById('userInput').value = btn.textContent;
+  document.getElementById('suggestions').style.display = 'none';
+  sendMessage();
+}
+
+function addBotMsg(text) {
+  const wrap = document.getElementById('messages');
+  const div = document.createElement('div'); div.className = 'msg bot';
+  const label = document.createElement('div'); label.className = 'msg-label'; label.textContent = '✦ Абдуллах';
+  const row = document.createElement('div'); row.className = 'bot-row';
+  const avatar = document.createElement('div'); avatar.className = 'robot-avatar idle'; avatar.innerHTML = buildRobotSVG();
+  const bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.innerHTML = formatText(text);
+  row.appendChild(avatar); row.appendChild(bubble);
+  div.appendChild(label); div.appendChild(row);
+  wrap.appendChild(div); div.scrollIntoView({block:'end'});
+  return {bubble, avatar};
+}
+
+function addUserMsg(text) {
+  const wrap = document.getElementById('messages');
+  const div = document.createElement('div'); div.className = 'msg user';
+  const label = document.createElement('div'); label.className = 'msg-label'; label.textContent = 'Вы';
+  const bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.innerHTML = formatText(text);
+  div.appendChild(label); div.appendChild(bubble);
+  wrap.appendChild(div); div.scrollIntoView({behavior:'smooth', block:'end'});
+}
+
+function formatText(t) {
+  t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  t = t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  t = t.replace(/«([^»]+)»\s*\(([^)]+аят[^)]+)\)/g,'<span class="quran-cite">«$1»<br><small>($2)</small></span>');
+  t = t.replace(/⚠️(.*)/g,'<span class="disclaimer">⚠️$1</span>');
+  t = t.replace(/\n/g,'<br>');
+  t = t.replace(/•\s(.+?)(<br>|$)/g,'&bull;&nbsp;$1$2');
+  return t;
+}
+
+function showTypingDots() {
+  const wrap = document.getElementById('messages');
+  const div = document.createElement('div'); div.className = 'msg bot'; div.id = 'typing';
+  const label = document.createElement('div'); label.className = 'msg-label'; label.textContent = '✦ Абдуллах думает...';
+  const row = document.createElement('div'); row.className = 'bot-row';
+  const avatar = document.createElement('div'); avatar.className = 'robot-avatar thinking'; avatar.id = 'typing-robot'; avatar.innerHTML = buildRobotSVG();
+  const bubble = document.createElement('div'); bubble.className = 'typing-bubble'; bubble.innerHTML = '<span></span><span></span><span></span>';
+  row.appendChild(avatar); row.appendChild(bubble);
+  div.appendChild(label); div.appendChild(row);
+  wrap.appendChild(div); div.scrollIntoView({behavior:'smooth', block:'end'});
+}
+
+function hideTypingDots() { const el = document.getElementById('typing'); if (el) el.remove(); }
+
+async function getResponse() {
+  showTypingDots();
+  try {
+    const userText = [...history].reverse().find(m => m.role === 'user')?.content || '';
+    const draftReply = await callGroq([{ role:'system', content:SYSTEM_PROMPT }, ...history], 1024);
+    const reply = await verifyAndFixReply(userText, draftReply);
+    history.push({role:'assistant', content:reply});
+
+    const tr = document.getElementById('typing-robot');
+    if (tr) setRobotState(tr, 'talking');
+    await new Promise(r => setTimeout(r, 380));
+    hideTypingDots();
+
+    const {avatar} = addBotMsg(reply + '\n\n⚠️ Бот может ошибаться — важную информацию перепроверяйте у учёных.');
+    setRobotState(avatar, 'talking');
+    setTimeout(() => setRobotState(avatar, 'idle'), Math.min(Math.max(reply.length * 28, 1800), 7000));
+  } catch(e) {
+    hideTypingDots();
+    const {avatar} = addBotMsg('Произошла ошибка: ' + e.message + '\n\nПроверьте API ключ и попробуйте снова.');
+    setRobotState(avatar, 'idle');
+  }
+}
+
+async function sendMessage() {
+  if (isLoading) return;
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text) return;
+  document.getElementById('suggestions').style.display = 'none';
+  input.value = ''; input.style.height = 'auto';
+  addUserMsg(text);
+  history.push({role:'user', content:text});
+  isLoading = true; document.getElementById('sendBtn').disabled = true;
+  try { await getResponse(); } finally { isLoading = false; document.getElementById('sendBtn').disabled = false; }
+}
+
+const ta = document.getElementById('userInput');
+ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 120) + 'px'; });
+ta.addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+</script>
+</body>
+</html>
