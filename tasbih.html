@@ -481,9 +481,52 @@
         }
 
         @media (max-width: 900px) {
+            body { padding: 16px; }
+
+            .back-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .quran-header { margin-bottom: 32px; }
+            h1 { font-size: 1.45rem; letter-spacing: 1.4px; }
+            .subtitle { font-size: 0.92rem; padding: 0 8px; }
+
+            .search-container { margin-bottom: 26px; }
+            #zikrSearch { padding: 14px 18px; font-size: 0.95rem; }
+
+            .zikr-grid { gap: 18px; }
+            .zikr-card { padding: 22px; border-radius: 18px; }
+            .ar-name { font-size: 2rem; }
+            .ru-name { font-size: 1rem; }
+            .ru-desc { font-size: 0.9rem; }
+
             .tasbih-shell {
                 grid-template-columns: 1fr;
+                gap: 18px;
+                direction: ltr;
             }
+
+            .tasbih-panel,
+            .tasbih-side { border-radius: 20px; }
+
+            .current-zikr { padding: 18px; margin-bottom: 16px; }
+            .current-zikr .translation-line { font-size: 0.95rem; }
+
+            .counter-wrap { padding: 12px 8px 6px; }
+            .counter-value { font-size: clamp(3.4rem, 10vw, 4.8rem); }
+            .progress-text { margin-bottom: 18px; }
+
+            .tap-btn {
+                width: min(280px, 85vw);
+                padding: 22px;
+            }
+
+            .tap-btn strong { font-size: 1.1rem; }
+            .tap-btn span { font-size: 0.88rem; }
+
+            .target-row,
+            .action-row { gap: 8px; }
         }
 
         @media (max-width: 700px) {
@@ -493,9 +536,54 @@
         }
 
         @media (max-width: 600px) {
-            .zikr-grid { grid-template-columns: 1fr; }
+            body { padding: 12px; }
+
+            .arabic-title { font-size: clamp(2.4rem, 12vw, 3.2rem); }
+            .subtitle { font-size: 0.88rem; }
+
+            .zikr-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                direction: ltr;
+            }
+
+            .zikr-card { padding: 20px; }
+            .zikr-num {
+                top: -12px;
+                right: 16px;
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+
+            .ar-name { font-size: 1.85rem; }
+            .ru-name { font-size: 0.96rem; }
+            .ru-desc { font-size: 0.86rem; }
+
             .tasbih-panel,
-            .tasbih-side { padding: 20px; }
+            .tasbih-side { padding: 18px; }
+
+            .current-zikr .arabic-line { font-size: clamp(1.6rem, 9vw, 2.2rem); }
+            .current-zikr .translation-line { font-size: 0.9rem; }
+
+            .counter-label { font-size: 0.72rem; letter-spacing: 1.2px; }
+            .counter-value { font-size: clamp(3rem, 12vw, 4.2rem); }
+            .progress-track { height: 10px; }
+
+            .tap-btn { width: min(260px, 86vw); }
+
+            .target-row,
+            .action-row {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .target-btn,
+            .action-btn { width: 100%; }
+
+            .surah-nav-btn { padding: 16px 18px; }
+            .nav-ar { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -804,4 +892,3 @@
 </script>
 </body>
 </html>
-
