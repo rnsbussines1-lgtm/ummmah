@@ -89,6 +89,26 @@
             font-weight: 700;
         }
 
+        .reciter-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.76);
+            border: 1px solid rgba(194,163,120,0.34);
+            color: var(--bg-dark);
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(176,141,87,0.08);
+        }
+
+        .reciter-note strong {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
         .surah-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -585,6 +605,7 @@
         <div class="quran-header">
             <span class="arabic-title">القرآن الكريم</span>
             <h1>Священный Коран</h1>
+            <div class="reciter-note"><strong>Чтение:</strong> Махир Аль-Муайкли</div>
         </div>
         <div id="load-notice" class="load-notice"></div>
         <div class="search-container">
@@ -605,7 +626,7 @@
 
     <div id="audio-choice-sheet" class="audio-choice-sheet" onclick="closeAudioChoiceSheet(event)">
         <div class="audio-choice-panel" onclick="event.stopPropagation()">
-            <div class="audio-choice-label">Режим прослушивания</div>
+            <div class="audio-choice-label">Режим прослушивания · Махир Аль-Муайкли</div>
             <h2 id="audio-choice-title" class="audio-choice-title">Выберите режим</h2>
             <div id="audio-choice-actions" class="audio-choice-actions"></div>
         </div>
@@ -617,10 +638,14 @@
 <script>
     const namesRu = ["Аль-Фатиха — Открывающая — 🕋","Аль-Бакара — Корова — 🕌","Аль Имран — Семейство Имрана — 🕌","Ан-Ниса — Женщины — 🕌","Аль-Маида — Трапеза — 🕌","Аль-Ан'ам — Скот — 🕋","Аль-А'раф — Преграды — 🕋","Аль-Анфаль — Добыча — 🕌","Ат-Тауба — Покаяние — 🕌","Юнус — Иона — 🕋","Худ — Худ — 🕋","Юсуф — Иосиф — 🕋","Ар-Ра'д — Гром — 🕋","Ибрахим — Авраам — 🕋","Аль-Хиджр — Хиджр — 🕋","Ан-Нахль — Пчёлы — 🕋","Аль-Исра — Ночной перенос — 🕋","Аль-Кахф — Пещера — 🕋","Марьям — Мария — 🕋","Та Ха — Та Ха — 🕋","Аль-Анбия — Пророки — 🕋","Аль-Хадж — Паломничество — 🕌","Аль-Му'минун — Верующие — 🕋","Ан-Нур — Свет — 🕌","Аль-Фуркан — Различение — 🕋","Аш-Шу'ара — Поэты — 🕋","Ан-Намль — Муравьи — 🕋","Аль-Касас — Рассказ — 🕋","Аль-'Анкабут — Паук — 🕋","Ар-Рум — Римляне — 🕋","Лукман — Лукман — 🕋","Ас-Саджда — Поклон — 🕋","Аль-Ахзаб — Союзники — 🕌","Саба — Сава — 🕋","Фатыр — Творец — 🕋","Йа Син — Йа Син — 🕋","Ас-Саффат — Выстроившиеся в ряд — 🕋","Сад — Сад — 🕋","Аз-Зумар — Толпы — 🕋","Гафир — Прощающий — 🕋","Фуссилят — Разъяснённые — 🕋","Аш-Шура — Совет — 🕋","Аз-Зухруф — Украшения — 🕋","Ад-Духан — Дым — 🕋","Аль-Джасия — Коленопреклонённые — 🕋","Аль-Ахкаф — Песчаные холмы — 🕋","Мухаммад — Мухаммад — 🕌","Аль-Фатх — Победа — 🕌","Аль-Худжурат — Комнаты — 🕌","Каф — Каф — 🕋","Аз-Зарият — Развевающие — 🕋","Ат-Тур — Гора — 🕋","Ан-Наджм — Звезда — 🕋","Аль-Камар — Луна — 🕋","Ар-Рахман — Милостивый — 🕋","Аль-Ваки'а — Событие — 🕋","Аль-Хадид — Железо — 🕌","Аль-Муджадила — Препирающаяся — 🕌","Аль-Хашр — Собрание — 🕌","Аль-Мумтахина — Испытуемая — 🕌","Ас-Сафф — Ряды — 🕌","Аль-Джуму'а — Пятница — 🕌","Аль-Мунафикун — Лицемеры — 🕌","Ат-Тагабун — Взаимный убыток — 🕌","Ат-Талак — Развод — 🕌","Ат-Тахрим — Запрещение — 🕌","Аль-Мульк — Власть — 🕋","Аль-Калам — Перо — 🕋","Аль-Хакка — Неминуемое — 🕋","Аль-Ма'аридж — Ступени — 🕋","Нух — Ной — 🕋","Аль-Джинн — Джинны — 🕋","Аль-Муззаммиль — Закутавшийся — 🕋","Аль-Муддассир — Завернувшийся — 🕋","Аль-Кияма — Воскресение — 🕋","Аль-Инсан — Человек — 🕌","Аль-Мурсалят — Посылаемые — 🕋","Ан-Наба — Весть — 🕋","Ан-Нази'ат — Вырывающие — 🕋","'Абаса — Нахмурился — 🕋","Ат-Таквир — Скручивание — 🕋","Аль-Инфитар — Раскалывание — 🕋","Аль-Мутаффифин — Обвешивающие — 🕋","Аль-Иншикак — Разверзание — 🕋","Аль-Бурудж — Созвездия — 🕋","Ат-Тарик — Ночной путник — 🕋","Аль-А'ля — Всевышний — 🕋","Аль-Гашия — Покрывающее — 🕋","Аль-Фаджр — Заря — 🕋","Аль-Балад — Город — 🕋","Аш-Шамс — Солнце — 🕋","Аль-Лейль — Ночь — 🕋","Ад-Духа — Утро — 🕋","Аш-Шарх — Раскрытие — 🕋","Ат-Тин — Смоковница — 🕋","Аль-'Аляк — Сгусток — 🕋","Аль-Кадр — Предопределение — 🕋","Аль-Баййина — Ясное знамение — 🕌","Аз-Зальзаля — Сотрясение — 🕌","Аль-'Адият — Мчащиеся — 🕋","Аль-Кари'а — Поражающее — 🕋","Ат-Такасур — Страсть к умножению — 🕋","Аль-'Аср — Время — 🕋","Аль-Хумаза — Хулитель — 🕋","Аль-Филь — Слон — 🕋","Курайш — Курайшиты — 🕋","Аль-Ма'ун — Мелочь — 🕋","Аль-Каусар — Изобилие — 🕋","Аль-Кафирун — Неверующие — 🕋","Ан-Наср — Помощь — 🕌","Аль-Масад — Пальмовое волокно — 🕋","Аль-Ихляс — Искренность — 🕋","Аль-Фаляк — Рассвет — 🕋","Ан-Нас — Люди — 🕋"];
 
-    const AUDIO_BASE_URL = 'https://verses.quran.com/Husary/mp3';
+    const AUDIO_CDN_BASE_URL = 'https://cdn.islamic.network/quran/audio';
+    const AUDIO_EDITION = 'ar.mahermuaiqly';
+    const AUDIO_BITRATE = 128;
+    const AUDIO_RECITER_NAME = 'Махир Аль-Муайкли';
 
     let qData = [];
     let tafsirData = {};
+    let surahAyahOffsets = [];
     let isReading = false;
     let currentAudio = null;
     let activeSurahIndex = null;
@@ -644,6 +669,7 @@
 
             qData = await qRes.json();
             qData = qData.suras || qData;
+            buildSurahAyahOffsets();
             tafsirData = await tRes.json();
             setLoadNotice('');
         } catch (e) {
@@ -658,6 +684,15 @@
         const notice = document.getElementById('load-notice');
         notice.textContent = text;
         notice.classList.toggle('visible', Boolean(text));
+    }
+
+    function buildSurahAyahOffsets() {
+        let total = 0;
+        surahAyahOffsets = qData.map((surah) => {
+            const currentOffset = total;
+            total += (surah.aya || surah.verses || []).length;
+            return currentOffset;
+        });
     }
 
     function getTafsir(surahNum, ayahNum) {
@@ -698,9 +733,11 @@
     });
 
     function getVerseAudioUrl(surahNum, ayahNum) {
-        const s = String(surahNum).padStart(3, '0');
-        const a = String(ayahNum).padStart(3, '0');
-        return `${AUDIO_BASE_URL}/${s}${a}.mp3`;
+        const surahOffset = surahAyahOffsets[surahNum - 1];
+        if (surahOffset === undefined) return '';
+
+        const globalAyahNumber = surahOffset + ayahNum;
+        return `${AUDIO_CDN_BASE_URL}/${AUDIO_BITRATE}/${AUDIO_EDITION}/${globalAyahNumber}.mp3`;
     }
 
     function buildPlaybackQueue(surahIdx, startAyahIdx = 0, mode = 'ayah') {
@@ -858,7 +895,7 @@
         };
 
         currentAudio.onerror = () => {
-            finishPlayback('Не удалось загрузить аудио. Проверьте подключение к интернету или доступность сервиса verses.quran.com.');
+            finishPlayback('Не удалось загрузить аудио. Проверьте подключение к интернету или доступность источника Maher Al Muaiqly.');
         };
 
         syncPlayButtons();
@@ -974,7 +1011,7 @@
         document.getElementById('current-ru').innerText = parts[0];
 
         const ayahs = surah.aya || surah.verses;
-        document.getElementById('current-info').innerText = `${parts[1]} · ${ayahs.length} аятов`;
+        document.getElementById('current-info').innerText = `${parts[1]} · ${ayahs.length} аятов · ${AUDIO_RECITER_NAME}`;
 
         const container = document.getElementById('ayahs-container');
         container.innerHTML = '';
